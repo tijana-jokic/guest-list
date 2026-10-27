@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>V&A</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <main class="guest-container">
+
+        <!-- POČETNA KARTICA -->
+
+        <div class="guest-card" id="searchCard">
+
+            <h1>Pronađi svoj sto</h1>
+
+            <p>
+                Unesite svoje ime i prezime.
+            </p>
+
+            <form id="guestForm">
+
+            
+
+                <input
+                    type="text"
+                    id="guestName"
+                    placeholder="Unesite ime ili prezime"
+                    required
+                >
+
+                <button type="submit">
+                    Pronađi moj sto
+                </button>
+
+            </form>
+
+            <div id="result"></div>
+
+        </div>
+
+
+        <!-- KARTICA SA REZULTATOM -->
+
+        <div class="guest-card result-card" id="resultCard">
+
+            <h1 id="welcomeMessage">
+                Dobrodošli!
+            </h1>
+        
+            <p class="table-message">
+                Vaš sto je broj
+            </p>
+        
+            <div id="tableNumber">
+                2
+            </div>
+        
+        
+            <div class="hall-title">
+                Raspored sale
+            </div>
+        
+        
+            <div class="hall">
+        
+                <div class="entrance">
+                    ULAZ
+                </div>
+        
+        
+                <div class="tables">
+        
+                    <div class="table" data-table="1">
+                        <span>Sto</span>
+                        <strong>1</strong>
+                    </div>
+        
+                    <div class="table" data-table="2">
+                        <span>Sto</span>
+                        <strong>2</strong>
+                    </div>
+        
+                    <div class="table" data-table="3">
+                        <span>Sto</span>
+                        <strong>3</strong>
+                    </div>
+        
+                    <div class="table" data-table="4">
+                        <span>Sto</span>
+                        <strong>4</strong>
+                    </div>
+        
+                    <div class="table" data-table="5">
+                        <span>Sto</span>
+                        <strong>5</strong>
+                    </div>
+        
+                    <div class="table" data-table="6">
+                        <span>Sto</span>
+                        <strong>6</strong>
+                    </div>
+        
+                    <div class="table" data-table="7">
+                        <span>Sto</span>
+                        <strong>7</strong>
+                    </div>
+        
+                    <div class="table" data-table="8">
+                        <span>Sto</span>
+                        <strong>8</strong>
+                    </div>
+        
+                </div>
+        
+        
+                <div class="dance-floor">
+                    PLESNI PODIJUM
+                </div>
+        
+        
+            </div>
+        
+        
+            <button
+                type="button"
+                id="newSearchButton"
+            >
+                Nova pretraga
+            </button>
+        
+        </div>
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/app.js"></script>
+
+</body>
+</html>

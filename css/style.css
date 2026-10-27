@@ -1,0 +1,681 @@
+* {
+    box-sizing: border-box;
+}
+
+
+/* =========================
+   OSNOVNI STILOVI
+   ========================= */
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    background-color: #f3e8da;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    color: #29251f;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    padding: 20px;
+}
+
+
+/* =========================
+   GLAVNI KONTEJNER
+   ========================= */
+
+.guest-container {
+    width: 100%;
+    max-width: 1500px;
+
+    min-height: 100vh;
+
+    padding: 40px;
+
+    background-color: #f3e8da;
+
+    background-image: url("../images/pozadina.png");
+
+    background-size: 100% 100%;
+
+    background-repeat: no-repeat;
+
+    background-position: top center;
+
+    border-radius: 25px;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+
+/* =========================
+   KARTICE
+   ========================= */
+
+.guest-card {
+    width: 100%;
+
+    max-width: 650px;
+
+    margin-top: clamp(
+        280px,
+        30vw,
+        450px
+    );
+
+    padding: 50px 60px;
+
+    background-color: rgba(255, 249, 241, 0.82);
+
+    border: 1px solid #bca78b;
+
+    border-radius: 22px;
+
+    text-align: center;
+
+    box-shadow:
+        0 10px 30px rgba(80, 60, 40, 0.08);
+}
+
+
+/*
+   Kartica sa rezultatom
+   je sakrivena dok se
+   ne pronađe gost.
+*/
+
+.result-card {
+    display: none;
+
+    margin-bottom: 40px;
+}
+
+
+/* =========================
+   NASLOV
+   ========================= */
+
+h1 {
+    margin: 0 0 15px;
+
+    font-size: 48px;
+
+    font-weight: normal;
+
+    color: #29251f;
+}
+
+
+.guest-card p {
+    margin-bottom: 30px;
+
+    font-size: 20px;
+
+    color: #51483d;
+}
+
+
+/* =========================
+   FORMA
+   ========================= */
+
+form {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+}
+
+
+label {
+    text-align: left;
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    color: #51483d;
+}
+
+
+input {
+    width: 100%;
+
+    padding: 17px 20px;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 18px;
+
+    color: #29251f;
+
+    background-color: rgba(255, 252, 247, 0.9);
+
+    border: 1px solid #bca78b;
+
+    border-radius: 10px;
+
+    outline: none;
+}
+
+
+input:focus {
+    border-color: #967b5d;
+
+    box-shadow:
+        0 0 0 2px rgba(150, 123, 93, 0.15);
+}
+
+
+/* =========================
+   DUGMAD
+   ========================= */
+
+button {
+    width: 100%;
+
+    padding: 17px;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 19px;
+
+    color: white;
+
+    background-color: #ad9475;
+
+    border: none;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+button:hover {
+    background-color: #967b5d;
+}
+
+
+button:active {
+    transform: scale(0.99);
+}
+
+
+/* =========================
+   REZULTAT PRETRAGE
+   ========================= */
+
+#result {
+    margin-top: 30px;
+}
+
+
+#result p {
+    margin-bottom: 15px;
+}
+
+
+/* =========================
+   VIŠE GOSTIJU
+   ========================= */
+
+.guest-option {
+    margin-top: 10px;
+
+    background-color: #e3d4c1;
+
+    color: #29251f;
+
+    border: 1px solid #bca78b;
+}
+
+
+.guest-option:hover {
+    background-color: #d5c2aa;
+}
+
+
+/* =========================
+   BROJ STOLA
+   ========================= */
+
+.table-message {
+    margin-bottom: 10px;
+}
+
+
+#tableNumber {
+    margin: 10px 0 30px;
+
+    font-size: 70px;
+
+    font-weight: bold;
+
+    color: #ad9475;
+}
+
+
+/* =========================
+   DUGME - NOVA PRETRAGA
+   ========================= */
+
+#newSearchButton {
+    background-color: transparent;
+
+    color: #806a50;
+
+    border: 1px solid #bca78b;
+}
+
+
+#newSearchButton:hover {
+    background-color: #e3d4c1;
+}
+
+
+/* =========================
+   NASLOV MAPE SALE
+   ========================= */
+
+.hall-title {
+    margin-top: 35px;
+
+    margin-bottom: 20px;
+
+    font-size: 22px;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    color: #51483d;
+}
+
+
+/* =========================
+   CELA SALA
+   ========================= */
+
+.hall {
+    width: 100%;
+
+    padding: 25px;
+
+    background-color: rgba(239, 226, 210, 0.65);
+
+    border: 1px solid #c5af91;
+
+    border-radius: 18px;
+}
+
+
+/* =========================
+   ULAZ
+   ========================= */
+
+.entrance {
+    width: 120px;
+
+    margin: 0 auto 30px;
+
+    padding: 10px;
+
+    text-align: center;
+
+    font-size: 14px;
+
+    letter-spacing: 2px;
+
+    color: #51483d;
+
+    border-bottom: 2px solid #ad9475;
+}
+
+
+/* =========================
+   RASPORED STOLOVA
+   ========================= */
+
+.tables {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 25px;
+
+    justify-items: center;
+}
+
+
+/* =========================
+   POJEDINAČNI STO
+   ========================= */
+
+.table {
+    width: 100px;
+
+    height: 100px;
+
+    border-radius: 50%;
+
+    background-color: #e4d3bd;
+
+    border: 2px solid #ad9475;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    color: #51483d;
+
+    transition:
+        transform 0.2s ease,
+        background-color 0.2s ease,
+        border 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.table span {
+    font-size: 13px;
+}
+
+
+.table strong {
+    font-size: 28px;
+}
+
+
+/* =========================
+   STO GOSTA
+   ========================= */
+
+.table.selected-table {
+    background-color: #ad9475;
+
+    color: white;
+
+    border: 4px solid #765b3d;
+
+    transform: scale(1.12);
+
+    box-shadow:
+        0 0 0 6px rgba(173, 148, 117, 0.25),
+        0 8px 20px rgba(80, 60, 40, 0.2);
+}
+
+
+/* =========================
+   PLESNI PODIJUM
+   ========================= */
+
+.dance-floor {
+    margin: 35px auto 10px;
+
+    padding: 20px;
+
+    border: 1px dashed #ad9475;
+
+    border-radius: 10px;
+
+    text-align: center;
+
+    font-size: 14px;
+
+    letter-spacing: 2px;
+
+    color: #806a50;
+
+    background-color: rgba(255, 250, 243, 0.5);
+}
+
+
+/* =========================================================
+   MOBILNI TELEFONI
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    body {
+        padding: 0;
+
+        align-items: flex-start;
+    }
+
+
+    /* =========================
+       GLAVNI KONTEJNER
+       ========================= */
+
+    .guest-container {
+        width: 100%;
+
+        min-height: 100vh;
+
+        padding: 15px 10px 30px;
+
+        border-radius: 0;
+
+        background-color: #f3e8da;
+
+        background-image: url("../images/pozadina.png");
+
+        background-size: 100% 100%;
+
+        background-repeat: no-repeat;
+
+        background-position: top center;
+
+        display: flex;
+
+        justify-content: center;
+
+        align-items: flex-start;
+    }
+
+
+    /* =========================
+       KARTICA
+       ========================= */
+
+    .guest-card {
+        width: 100%;
+
+        max-width: 100%;
+
+        margin-top: clamp(
+            270px,
+            65vw,
+            360px
+        );
+
+        padding: 35px 20px;
+
+        border-radius: 18px;
+    }
+
+
+    /* =========================
+       NASLOV
+       ========================= */
+
+    h1 {
+        font-size: 34px;
+
+        line-height: 1.2;
+    }
+
+
+    .guest-card p {
+        font-size: 17px;
+
+        line-height: 1.5;
+    }
+
+
+    /* =========================
+       FORMA
+       ========================= */
+
+    label {
+        font-size: 16px;
+    }
+
+
+    input {
+        padding: 15px;
+
+        font-size: 16px;
+    }
+
+
+    button {
+        padding: 15px;
+
+        font-size: 17px;
+    }
+
+
+    /* =========================
+       REZULTAT
+       ========================= */
+
+    #result {
+        margin-top: 25px;
+    }
+
+
+    /* =========================
+       BROJ STOLA
+       ========================= */
+
+    #tableNumber {
+        font-size: 60px;
+
+        margin-bottom: 25px;
+    }
+
+
+    /* =========================
+       MAPA SALE
+       ========================= */
+
+    .hall-title {
+        margin-top: 25px;
+
+        margin-bottom: 15px;
+
+        font-size: 18px;
+
+        letter-spacing: 1.5px;
+    }
+
+
+    .hall {
+        padding: 18px 10px;
+    }
+
+
+    /* =========================
+       ULAZ
+       ========================= */
+
+    .entrance {
+        width: 100px;
+
+        margin-bottom: 25px;
+
+        font-size: 12px;
+    }
+
+
+    /* =========================
+       STOLOVI
+       ========================= */
+
+    .tables {
+        gap: 18px;
+    }
+
+
+    .table {
+        width: 80px;
+
+        height: 80px;
+    }
+
+
+    .table span {
+        font-size: 11px;
+    }
+
+
+    .table strong {
+        font-size: 24px;
+    }
+
+
+    /* =========================
+       PLESNI PODIJUM
+       ========================= */
+
+    .dance-floor {
+        margin-top: 25px;
+
+        padding: 15px;
+
+        font-size: 12px;
+    }
+
+
+    /* =========================
+       REZULTATNA KARTICA
+       ========================= */
+
+    .result-card {
+        margin-bottom: 30px;
+
+        /*
+           Na telefonu rezultatnu
+           karticu spuštamo niže
+           da ostane ispod logoa.
+        */
+
+        margin-top: 380px;
+    }
+
+}
+
+
+/* =========================================================
+   REZULTATNA KARTICA - DESKTOP
+   ========================================================= */
+
+/*
+   Početna kartica ostaje na svom
+   originalnom mestu.
+
+   Samo karticu sa rasporedom
+   spuštamo niže.
+*/
+
+.result-card {
+    margin-top: 450px;
+}
