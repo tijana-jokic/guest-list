@@ -10,21 +10,7 @@ window.supabase.createClient(
     SUPABASE_PUBLISHABLE_KEY
 );
 
-async function testSupabaseConnection() {
-    const { data, error } = await supabaseClient
-        .from("guests")
-        .select("*");
 
-    if (error) {
-        console.error("Greška pri povezivanju:", error);
-        return;
-    }
-
-    console.log("Uspešno povezivanje sa Supabase bazom!");
-    console.log("Gosti iz baze:", data);
-}
-
-testSupabaseConnection();
 
 
 // =========================================================
@@ -69,87 +55,88 @@ const welcomeMessage =
 const tableNumber =
     document.getElementById("tableNumber");
 
+const tableGuests =
+    document.getElementById("tableGuests");
+
 const newSearchButton =
     document.getElementById("newSearchButton");
+
+    let currentSearchResults = [];
 
 
 // =========================================================
 // FUNKCIJA KOJA PRIKAZUJE PODATKE O GOSTU
 // =========================================================
 
-function showGuest(guest) {
 
+async function showGuest(guest) {
     welcomeMessage.textContent =
-        "Dobrodošli, " +
-        guest.first_name +
-        "!";
+        "Dobrodošli, " + guest.first_name + "!";
 
+    tableNumber.textContent = guest.table_number ?? "Nije dodeljen";
 
-    tableNumber.textContent =
-        guest.table_number;
-
-
-    // -----------------------------------------
-    // Pronađi sve stolove
-    // -----------------------------------------
-
-    const tables =
-        document.querySelectorAll(".table");
-
-
-    // -----------------------------------------
-    // Ukloni prethodno označavanje
-    // -----------------------------------------
+    // Ukloni prethodno označavanje stolova
+    const tables = document.querySelectorAll(".table");
 
     tables.forEach(function(table) {
-
-        table.classList.remove(
-            "selected-table"
-        );
-
+        table.classList.remove("selected-table");
     });
 
-
-    // -----------------------------------------
-    // Pronađi sto gosta
-    // -----------------------------------------
-
-    const selectedTable =
-        document.querySelector(
-            '.table[data-table="' +
-            guest.table_number +
-            '"]'
-        );
-
-
-    // -----------------------------------------
-    // Označi njegov sto
-    // -----------------------------------------
+    // Pronađi i označi sto gosta
+    const selectedTable = document.querySelector(
+        '.table[data-table="' + guest.table_number + '"]'
+    );
 
     if (selectedTable) {
-
-        selectedTable.classList.add(
-            "selected-table"
-        );
-
+        selectedTable.classList.add("selected-table");
     }
 
+    // Prikaži rezultat i sakrij pretragu
+    searchCard.style.display = "none";
+    resultCard.style.display = "block";
 
-    // -----------------------------------------
-    // Sakrij početnu karticu
-    // -----------------------------------------
+    // Očisti spisak od prethodnog gosta
+    tableGuests.replaceChildren();
 
-    searchCard.style.display =
-        "none";
+    if (guest.table_number == null) {
+        tableGuests.textContent =
+            "Za ovog gosta još nije dodeljen sto.";
+        return;
+    }
 
-
-    // -----------------------------------------
-    // Prikaži rezultat
-    // -----------------------------------------
-
-    resultCard.style.display =
-        "block";
+    // Učitaj goste koji sede za istim stolom
+    const guestsAtTable = currentSearchResults.filter(
+        function(person) {
+            return String(person.table_number) ===
+                String(guest.table_number);
+        }
+    );
+    
+    const otherGuests = guestsAtTable.filter(
+        function(person) {
+            return String(person.id) !== String(guest.id);
+        }
+    );
+    
+    if (otherGuests.length === 0) {
+        tableGuests.textContent =
+            "Za sada nema drugih gostiju prikazanih za ovim stolom.";
+        return;
+    }
+    
+    otherGuests.forEach(function(person) {
+        const guestItem = document.createElement("div");
+        guestItem.className = "table-guest";
+    
+        guestItem.textContent =
+            [person.first_name, person.last_name]
+                .filter(Boolean)
+                .join(" ");
+    
+        tableGuests.appendChild(guestItem);
+    });
 }
+
 
 
 // =========================================================
@@ -190,11 +177,16 @@ guestForm.addEventListener(
         // -----------------------------------------
 
         const {
-            data: guests,
+            data: response,
             error
-        } = await supabaseClient
-            .from("guests")
-            .select("*");
+        } = await supabaseClient.functions.invoke(
+            "guest-search",
+            {
+                body: {
+                    search_term: searchValue
+                }
+            }
+        );
 
 
         // -----------------------------------------
@@ -214,36 +206,18 @@ guestForm.addEventListener(
             return;
         }
 
+        currentSearchResults = response?.guests || [];
+
 
         // -----------------------------------------
         // Traženje gostiju
         // -----------------------------------------
 
+        currentSearchResults = response?.guests || [];
+
         const matchingGuests =
-            guests.filter(function(person) {
-
-                const firstName =
-                    normalizeText(
-                        person.first_name
-                    );
-
-                const lastName =
-                    normalizeText(
-                        person.last_name
-                    );
-
-                const fullName =
-                    firstName +
-                    " " +
-                    lastName;
-
-
-                return (
-                    firstName.includes(search) ||
-                    lastName.includes(search) ||
-                    fullName.includes(search)
-                );
-
+            currentSearchResults.filter(function(person) {
+                return person.is_match;
             });
 
 
@@ -269,7 +243,7 @@ guestForm.addEventListener(
             matchingGuests.length === 1
         ) {
 
-            showGuest(
+            await showGuest(
                 matchingGuests[0]
             );
 
@@ -313,9 +287,9 @@ guestForm.addEventListener(
 
                     button.addEventListener(
                         "click",
-                        function() {
+                        async function() {
 
-                            showGuest(
+                            await showGuest(
                                 guest
                             );
 
